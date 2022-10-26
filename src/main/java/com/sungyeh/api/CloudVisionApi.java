@@ -31,7 +31,7 @@ public class CloudVisionApi {
     @Value("classpath:sample.json")
     org.springframework.core.io.Resource resourceFile;
 
-    public void send() {
+    public String send(String para) {
         InputStream stream = null;
         InputStreamReader isReader = null;
         BufferedReader reader = null;
@@ -42,6 +42,7 @@ public class CloudVisionApi {
             reader = new BufferedReader(isReader);
             String line = null;
             while ((line = reader.readLine()) != null) {
+                line = line.replaceAll("base64", para);
                 text += line;
             }
         } catch (IOException e) {
@@ -75,5 +76,6 @@ public class CloudVisionApi {
         HttpEntity<String> request = new HttpEntity<>(text, httpHeaders);
         String test = restTemplate.postForObject("https://vision.googleapis.com/v1/images:annotate?key=" + config.getCloudVision(), request, String.class);
         System.out.println(test);
+        return test;
     }
 }

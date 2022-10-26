@@ -22,6 +22,6 @@ public class ApiTest {
     @Test
     public void test() {
 
-        cloudVisionApi.send();
+//        cloudVisionApi.send();
     }
 }
